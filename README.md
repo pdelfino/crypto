@@ -1,9 +1,26 @@
-# criptography
+# Algebra, Number Theory and Cryptography 
+---
 
-repository for the Criptography class
+ + I did this for the course "Álgebra, Teoria dos Números e Criptografia" (Algebra, Number Theory and Cryptography) at the Escola de Mamemática Aplicada (EMAp). 
+ 
+ + Professor: MsC Luciano Castro.
 
-fazer capítulo 1 a 6
-depois colocar no jupyter
+ + Date: 2019.2.
 
-quando o semesetre terminar, organizar o repositório
+ + Tech Stack: Python. 
+
+ + Projects: 
+  
+ + Support Material: Números inteitores e Criptografia RSA, Coutinho.
+
+---
+
+To do/done:
+
+- [ ] cap 1;
+- [ ] cap 2;
+- [ ] cap 3;
+- [ ] cap 4;
+- [ ] cap 5; e, 
+- [ ] cap 6.
 
