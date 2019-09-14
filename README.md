@@ -3,14 +3,15 @@
 
  + I did this for the course "Álgebra, Teoria dos Números e Criptografia" (Algebra, Number Theory and Cryptography) at the Escola de Mamemática Aplicada (EMAp). 
  
- + Professor: MsC Luciano Castro.
+ + Professor: Master Luciano Castro.
 
  + Date: 2019.2.
 
  + Tech Stack: Python. 
 
  + Projects: 
-  
+    -
+    -
  + Support Material: Números inteitores e Criptografia RSA, Coutinho.
 
 ---
