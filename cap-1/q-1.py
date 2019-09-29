@@ -34,8 +34,9 @@ def extended_euclidean_algo(m, n):
 def pretty_eea(m,n):
     mdc, alpha,beta = extended_euclidean_algo(m,n)
     print ("Par de inteiros:  ",m,n)
-    return ("mdc: " +str(mdc) + ", alpha: "+str(alpha)+", beta: "+ str(beta))
+    return ("mdc: " +str(mdc) + ", alpha: "+str(alpha)+", beta: "+ str(beta)+"\n")
 
+print ("exemplo do livro: ",pretty_eea(1234,54))
 print (pretty_eea(14,35))
 print (pretty_eea(252,180))
 print (pretty_eea(6643,2873))
