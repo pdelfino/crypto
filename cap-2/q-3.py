@@ -1,4 +1,5 @@
 # algoritmo de fermat
+# consulta ao livro basicamente
 import math
 
 def fermat_core(n):
@@ -37,3 +38,4 @@ print ("Fatore o número 17557: ",fermat_factor(17557))
 print ("Fatore o número 455621: ",fermat_factor(455621))
 print ("Fatore o número 731021: ",fermat_factor(731021))
 
+#resultados foram checados em https://www.numberempire.com/numberfactorizer.php
