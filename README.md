@@ -7,7 +7,7 @@
 
  + Date: 2019.2.
 
- + Tech Stack: Python. 
+ + Tech Stack: Python3. 
 
  + Projects: 
     -
@@ -18,8 +18,8 @@
 
 To do/done:
 
-- [ ] cap 1;
-- [ ] cap 2;
+- [X] cap 1;
+- [X] cap 2;
 - [ ] cap 3;
 - [ ] cap 4;
 - [ ] cap 5; e, 
