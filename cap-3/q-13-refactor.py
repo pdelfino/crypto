@@ -49,11 +49,10 @@ def pi_type(n):
     pi_3_count = len(pi_3)
     prop = pi_1_count/pi_3_count
 
-    return ("pi_1: ",pi_1_count,"pi_3: ", pi_3_count)
+    return (pi_1_count, pi_3_count)
 
 #print (pi_type(100000))
 
-'''
 iterar =3
 while iterar<100000:
     
@@ -62,8 +61,6 @@ while iterar<100000:
     #print (iterar)
     p_1+=0
     if p_1>p_3:
-        print ("pi_1>pi_3 para n: ",iterar)
+        print ("pi_1>pi_3: ",p_1)
         break
     iterar+=2
-'''
-print ("caso em que pi_1>pi_3 x=26861: ",pi_type(26861))
