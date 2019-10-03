@@ -58,9 +58,9 @@ while iterar<100000:
     
     p_1,p_3 = (pi_type(iterar))
     #print (p_1,p_3)
-    print (iterar)
+    #print (iterar)
     p_1+=0
     if p_1>p_3:
         print ("pi_1>pi_3: ",p_1)
         break
-    iterar+=1
+    iterar+=2
