@@ -49,13 +49,18 @@ def pi_type(n):
     pi_3_count = len(pi_3)
     prop = pi_1_count/pi_3_count
 
-    return ("| n: " + str(n) + "| pi_1_count: " + str(pi_1_count) + "| pi_3_count: " + str(pi_3_count) + "| proporção (pi_1/pi_3): " + str(prop))
+    return (pi_1_count, pi_3_count)
 
-print (pi_type(100000))
-'''
-iterar =100
+#print (pi_type(100000))
+
+iterar =3
 while iterar<100000:
     
-    print (pi_type(iterar))
-    
-    iterar+=100'''
+    p_1,p_3 = (pi_type(iterar))
+    #print (p_1,p_3)
+    print (iterar)
+    p_1+=0
+    if p_1>p_3:
+        print ("pi_1>pi_3: ",p_1)
+        break
+    iterar+=1
