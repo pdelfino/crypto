@@ -1,27 +1,38 @@
-# Algebra, Number Theory and Cryptography 
+# Algebra, Teoria dos Números e Criptografia 
 ---
 
- + I did this for the course "Álgebra, Teoria dos Números e Criptografia" (Algebra, Number Theory and Cryptography) at the Escola de Mamemática Aplicada (EMAp). 
- 
- + Professor: Master Luciano Castro.
+ + Professor:  Luciano Castro.
 
- + Date: 2019.2.
+ + Data: 2019.2.
 
- + Tech Stack: Python3. 
+ + Tech Stack: Python 3. 
 
- + Projects: 
-    -
-    -
- + Support Material: Números inteitores e Criptografia RSA, Coutinho.
+ + Projeto: 
+    
+     - A1: 
+    
+        - resolução das questões de programação do livro  "Números inteitores e Criptografia RSA" do Capítulo 1 ao 6.
+    
+     - A2: 
+    
+        - [a definir, provável: blockchain]
+    
+       
+### Por que usar github?
 
----
+Conforme conversado um dia após a aula, apresentar o trabalho via README tem algumas vantagens:
+- não exige nenhuma instalação, simplesmente abrindo o link no navegador;
+- o formato markdown permite uma estética bacana que diferencia código de texto;
+- o trabalho fica no github e, como legado, faz parte do portfólio do aluno.
 
-To do/done:
 
-- [X] cap 1;
-- [X] cap 2;
-- [ ] cap 3;
-- [ ] cap 4;
-- [ ] cap 5; e, 
-- [ ] cap 6.
+## Capítulo 1
+
+
+
+### Questão 3
+
+
+
+
 
