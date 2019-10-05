@@ -859,5 +859,314 @@ Lento foi achar esse valor de x...
 
 ## Capítulo 4
 
-###
+
+
+### Questão 3
+
+Novamente, fiz uma questão de cálculo. E, mais uma vez, foi para fazer alguns testes e ganhar maior confiança.
+
+```python
+# recebe a,k e n -> fazendo a^k (mod n)
+
+def potencia(base,expoente,mod):
+    
+    if mod==1:
+        return 0
+    
+    result = 1
+
+    for i in range(0,expoente):
+        result = (result*base)%mod
+    return (str(base)+"^"+str(expoente)+" (mod "+str(mod)+") equivale a: "+str(result))
+
+#teste -> passo
+# questões do livro resolvidas com o algoritmo da questão 11 - grupo controle: https://planetcalc.com/8326/
+print (potencia(5,20,7))
+print (potencia(7,1001,11))
+print (potencia(2,130,263))
+print (potencia(13,221,19))
+```
+
+Esse código retorna:
+
+```python
+5^20 (mod 7) equivale a: 4
+7^1001 (mod 11) equivale a: 7
+2^130 (mod 263) equivale a: 132
+13^221 (mod 19) equivale a: 14
+
+```
+
+
+
+### Questão 11
+
+ A solução dessa questão é bem curta:
+
+```python
+# recebe a,k e n -> fazendo a^k (mod n)
+
+def potencia(base,expoente,mod):
+    
+    if mod==1:
+        return 0
+    
+    result = 1
+
+    for i in range(0,expoente):
+        result = (result*base)%mod
+    return (str(base)+"^"+str(expoente)+" (mod "+str(mod)+") equivale a: "+str(result))
+
+#teste -> passou
+print (potencia(4,13,497))
+```
+
+Implementação direta das instruções do livro que retorna:
+
+```python
+4^13 (mod 497) equivale a: 445
+
+```
+
+
+
+## Capítulo 5
+
+### Questão 16
+
+O enunciado fala para usar o exercício 14... Mas acaba nem sendo necessário. O código da inversa é curtinho. Importante garantir que "p" não divide "a".
+
+```
+def inverse_mod(a,p):
+
+    if a%p==0:
+        return "p divide a"
+    else:
+        for i in range(1,p):
+            if (i*a)%p==1:
+                return i
+
+# exemplo do teste 3
+print (inverse_mod(7,47))
+```
+
+Usei um site de cálculo online de inversa para checar se estava correto. O código acima retorna o resultado certo:
+
+```python
+27	
+```
+
+
+
+### Questão 17
+
+Demorei um pouco a entender exatamente como chegaria na resposta. Depois de algumas contas no papel saiu:
+
+```python
+
+# preciso resolver [x^2 congruente a (mod p)]
+
+def squared_modular(a,p):
+    
+    k = (p-3)/4
+    
+    sol_parcial = (a**(k+1))%p
+    
+    sol_final = []
+    
+    if (sol_parcial**2)%p==a%p:
+    
+        sol_final.append(sol_parcial)
+        sol_final.append(-sol_parcial)
+ 
+        return sol_final
+    else:
+        
+        return ('A equação não possui resolução')
+
+print ("Com x=0 temos (x^2) congruente a 1 (mod 1): ",squared_modular(1,1))
+print ("Se  x^2 congruente a 2 (mod 7), então x=4 ou -4: ",squared_modular(2,7))
+```
+
+Que retorna:
+
+```python
+Com x=0 temos (x^2) congruente a 1 (mod 1):  [0.0, -0.0]
+Se  x^2 congruente a 2 (mod 7), então x=4 ou -4:  [4.0, -4.0]
+
+```
+
+
+
+
+
+### Questão 18
+
+Essa questão novamente envolve o Crivo e, mais uma vez, "carreguei"  o peso de uma implementação ininial sub-ótima. Nesse momento do trabalho eu comecei a pensar que era melhor ter corrigido lá atrás. Eu achava que os capítulos fossem ser mais independentes...
+
+Mesmo subótimo, o código retorna o resultado desejado em menos de 30 segundos:
+
+```python
+import math
+
+def crivo_eratostenes(n):
+
+    stop =math.ceil(math.sqrt(n))
+    
+    lista = list(range(3,n+1))
+    lista = lista[::2]
+    
+    iter_index_crivo = 0
+    iter_crivo = lista[iter_index_crivo]
+    
+    while iter_crivo<stop:
+
+        for i in lista[iter_index_crivo::]:
+
+            #print("i",i,"iter_crivo",iter_crivo)
+            if i%iter_crivo==0 and (iter_crivo!=i):
+                #print ("lista antes da alteração: ",lista)
+                lista.remove(i)
+                #print ("lista depois da alteração: ",lista)
+        
+        iter_index_crivo += 1
+        iter_crivo = lista[iter_index_crivo]
+       
+    return lista
+
+#print (crivo_eratostenes(100))
+# função para checar se é da forma 4n+1 ou 4n+3
+# n é o alcance
+
+def primos_congruentes(a,r):
+    
+    result = []
+    
+    num_primos = crivo_eratostenes(r)
+    
+    for p in num_primos:
+    
+        if  (a**(p-1))%(p**2)==1:
+            result.append(p)
+    
+    return result  
+
+print ("Fazendo os exemplos do livro. Com a=2,5,10,14 são 2 primos. E com a=19 são 5 primos, respectivamente: ")
+print (primos_congruentes(2,100000))
+print (primos_congruentes(5,100000))
+print (primos_congruentes(10,100000))
+print (primos_congruentes(14,100000))
+print (primos_congruentes(19,100000))
+```
+
+Output:
+
+```python
+Fazendo os exemplos do livro. Com a=2,5,10,14 são 2 primos. E com a=19 são 5 primos, respectivamente: 
+[1093, 3511]
+[20771, 40487]
+[3, 487]
+[29, 353]
+[3, 7, 13, 43, 137]
+```
+
+
+
+# Capítulo 6
+
+
+
+### Questão 9
+
+Não consegui fazer essa questão. Falei com o colega Lucas Brito, que fez o curso ano passado. Ele me disse que também não tinha conseguido fazer uma das questões do livro. Imagino que seja essa.
+
+
+
+### Questão 11
+
+Existem apenas dois exemplos de  base 2 em que r=5*10^4. Eles são: **1093, 3511**
+
+Veja o código para chegar nesses valores abaixo. **Destaque para a parte final em que fiz testes de sanidade.**
+
+
+
+```python
+import math
+
+def crivo_eratostenes(n):   
+
+    stop =math.ceil(math.sqrt(n))
+    
+    lista = list(range(3,n+1))
+    lista = lista[::2]
+    
+    iter_index_crivo = 0
+    iter_crivo = lista[iter_index_crivo]
+    
+    while iter_crivo<stop:
+
+        for i in lista[iter_index_crivo::]:
+
+            #print("i",i,"iter_crivo",iter_crivo)
+            if i%iter_crivo==0 and (iter_crivo!=i):
+                #print ("lista antes da alteração: ",lista)
+                lista.remove(i)
+                #print ("lista depois da alteração: ",lista)
+        
+        iter_index_crivo += 1
+        iter_crivo = lista[iter_index_crivo]
+       
+    return lista
+
+
+def pseudo_primo_quadrado(r):
+    
+    num_primos = crivo_eratostenes(r)
+    lista_temp = []
+
+    for primo in num_primos:
+        
+        resto = 1
+        mod_externo = primo**2
+        fator_primeiro = (2**(primo-1))
+        fator_segundo =  ((2**(primo))%(primo**2))
+
+        if ((fator_primeiro*((fator_segundo)**(primo-1))))%(mod_externo)==resto:
+            
+            lista_temp.append(primo)
+    
+    lista_final = lista_temp
+
+    return lista_final
+
+print("Os dois números são: ",pseudo_primo_quadrado(5000))
+
+# fazer teste de sanidade
+def teste_sanidade(par):
+    
+    output = pseudo_primo_quadrado(par)
+
+    for i in output:
+
+        hold = 2**(i**2-1)
+        if (hold%i**2)!=1:
+            return False
+
+    return True
+
+print ("Teste de Sanidade: ",teste_sanidade(5000))
+
+```
+
+O retorno é:
+
+```python
+Os dois números são:  [1093, 3511]
+Teste de Sanidade:  True
+
+```
+
+Curiosamente, o resultado não muda para r=5000 ou r=50000
+
+Para r=50000 o código demora um pouco pela forma como implementei o algoritmo de eratóstenes
 
