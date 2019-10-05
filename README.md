@@ -11,18 +11,18 @@
    
      - A1: 
      
-        - resolução das questões de programação do livro  "Números inteitores e Criptografia RSA" do Capítulo 1 ao 6.
+        - Resolução das questões de programação do livro  "Números inteiros e Criptografia RSA" [S. C. Coutinho] do Capítulo 1 ao 6.
        
      - A2: 
      
-        - [a definir, provável: blockchain]
-     
+        - [A definir, provável: blockchain]
+        
      
 ### Por que usar github?
 
 Conforme conversado um dia após a aula, apresentar o trabalho como arquivo markdown no github tem algumas vantagens:
-- não exige nenhuma instalação, simplesmente abrindo o link no navegador;
-- o formato markdown permite uma estética bacana que diferencia código de texto;
+- não exige nenhuma instalação, basta abrir o link no navegador;
+- o formato markdown permite uma estética bacana que diferencia o texto de código do texto de linguahem natural;
 - o trabalho fica no github e, como legado, faz parte do portfólio do aluno. Cada vez mais, o github tem sido analisado como parte da entrevista de programadores.
 
 
@@ -658,8 +658,6 @@ print (tabela_comparative(input_ex))
 
 
 
-
-
 O código retorna:
 
 ```python
@@ -853,7 +851,7 @@ caso em que pi_1>pi_3 x=26861:  ('pi_1: ', 1473, 'pi_3: ', 1472)
 
 ```
 
-Lento foi achar esse valor de x...
+Lento foi achar esse valor de x... Para encontrá-lo usei a parte do código que está entre ''' de vermelho''' acima.
 
 
 
@@ -863,7 +861,7 @@ Lento foi achar esse valor de x...
 
 ### Questão 3
 
-Novamente, fiz uma questão de cálculo. E, mais uma vez, foi para fazer alguns testes e ganhar maior confiança.
+Novamente, fiz uma questão de cálculo de valores. E, mais uma vez, foi útil para fazer alguns testes e para ganhar maior confiança.
 
 ```python
 # recebe a,k e n -> fazendo a^k (mod n)
@@ -998,8 +996,6 @@ Se  x^2 congruente a 2 (mod 7), então x=4 ou -4:  [4.0, -4.0]
 
 
 
-
-
 ### Questão 18
 
 Essa questão novamente envolve o Crivo e, mais uma vez, "carreguei"  o peso de uma implementação ininial sub-ótima. Nesse momento do trabalho eu comecei a pensar que era melhor ter corrigido lá atrás. Eu achava que os capítulos fossem ser mais independentes...
@@ -1074,11 +1070,136 @@ Fazendo os exemplos do livro. Com a=2,5,10,14 são 2 primos. E com a=19 são 5 p
 
 # Capítulo 6
 
+### Questão 10
+
+Essa questão ficou um pouco longa e exigiu uma função não ingênua para encontrar os fatores. Foi preciso alterar o algoritmo do Crivo, complementando-o.
+
+```python
+import numpy as np
+
+#base passada pelo enunciado
+base_enunciado = [2,3,5,7]
+
+def count_factors(numero):
+    
+    n = numero
+    fator = []
+    contador = 0
+    
+    for a in range(2,int(numero/2)+1):
+    
+        while numero%a == 0:
+        
+            numero/=a     
+            contador+=1
+        
+        if contador!=0:
+            fator.append(contador)
+        
+        contador=0
+    
+    if n==numero:
+    
+        fator.append(1)
+    
+    numero_fatores=1
+    
+    for expoente in fator:
+        numero_fatores*=expoente+1
+    
+    return numero_fatores
 
 
-### Questão 9
+def crivo_eratostenes_compl(n):
+    
+    if n%2 == 0:
+        crivo_eratostenes_compl(n-1)
+    
+    v = np.ones((int((n-1)/2)))
+    
+    P = 3
+    
+    while P**2<=n:
+    
+        if v[int((P-1)/2)-1]==0:
+            P+=2
+        
+        else:
+            T=P**2
+        
+            while T<n:
+                v[int((T-1)/2)-1]=0
+                T+=2*P
+            P+=2
+    l=[]
+    
+    for m in range(len(v)):
+        
+        if v[m]==0:
+            l.append(2*(m+1)+1)
+    
+    if count_factors(l[-1])==2:
+        l.remove(l[-1])
+    
+    return l
 
-Não consegui fazer essa questão. Falei com o colega Lucas Brito, que fez o curso ano passado. Ele me disse que também não tinha conseguido fazer uma das questões do livro. Imagino que seja essa.
+def miller_test(n,b):
+    
+    k = 0
+    
+    N = n-1
+    
+    while (N)%2 == 0:
+        
+        N = N/2
+        
+        k = k+1
+    
+    q = (n-1)/(2**k)
+    
+    i = 0
+    
+    r = (b**q)%n
+    
+    while True:
+        
+        if i==0 and r==1:
+            return "teste não conclusivo"
+        
+        elif i>=0 and r==n-1:
+            return "teste não conclusivo"
+        
+        i = i + 1
+        
+        r=(r**2)%n
+        
+        if i>=k:
+            return('composto')
+
+def pseudo_forte(b):
+    
+    lista_pseudoprimos = crivo_eratostenes_compl(10000)
+    
+    for i in lista_pseudoprimos:
+         
+        if miller_test(i,b) == "teste não conclusivo":
+            
+            return i
+
+for i in base_enunciado:
+    
+    print ("base: ",i,", teste: ",pseudo_forte(i))
+
+```
+
+Ao aplicar o teste nos valores pedidos temos:
+
+```python
+base:  2 , teste:  2047
+base:  3 , teste:  75
+base:  5 , teste:  247
+base:  7 , teste:  25
+```
 
 
 
@@ -1170,3 +1291,14 @@ Curiosamente, o resultado não muda para r=5000 ou r=50000
 
 Para r=50000 o código demora um pouco pela forma como implementei o algoritmo de eratóstenes
 
+
+
+### Questão 9
+
+Não consegui fazer essa questão. Falei com o colega Lucas Brito, que fez o curso ano passado. Ele me disse que também não tinha conseguido fazer uma das questões do livro. Imagino que seja essa.
+
+
+
+### Questão 8
+
+Também não consegui. Essa acho que faltou um pouco de tempo e de organização. Espero que as questões que fiz a mais, os comentários, esse arquivo na web, ou outro fator possa compensar de alguma forma.
