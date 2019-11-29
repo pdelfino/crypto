@@ -1,6 +1,6 @@
 #função ingênua para contar quantos divisores tem um número
 # obviamente, vou desconsiderar a divisão por 1 e pelo próprio número
-# estranho, o wikipedia considera o 2
+# estranho, o wikipedia considera o 2 como HCN
 # video do youtube do simon tiger
 # https://www.youtube.com/watch?v=VyZhDWFx3Eo&t=478s
 
