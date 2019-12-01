@@ -1,12 +1,13 @@
 # Algebra, Teoria dos Números e Criptografia 
+
 ---
 
  + Professor:  Luciano Castro.
-
+ + Alunos:
+      + Pedro Delfino [A1 e A2]; e
+      + Bruna Fistarol [A2].
  + Data: 2019.2.
-
  + Tech Stack: Python 3. 
-
  + Projeto: 
    
      - A1: 
@@ -15,29 +16,193 @@
        
      - A2: 
      
-        - [A definir, provável: blockchain]
+        - Implementação do RSA.
         
      
 ### Por que usar github?
 
 Conforme conversado um dia após a aula, apresentar o trabalho como arquivo markdown no github tem algumas vantagens:
 - não exige nenhuma instalação, basta abrir o link no navegador;
-- o formato markdown permite uma estética bacana que diferencia o texto de código do texto de linguahem natural;
+- o formato markdown permite uma estética bacana que diferencia o código da linguagem natural;
 - o trabalho fica no github e, como legado, faz parte do portfólio do aluno. Cada vez mais, o github tem sido analisado como parte da entrevista de programadores.
 
 
 
-## Capítulo 1
+## A2 - Implementação do RSA
 
 
 
-### Questão 1
+### Introdução
+
+O algoritmo do RSA foi criado em 1978 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
+
+O sistema tem como base de funcionamento uma chave pública, amplamento divulgada por todos, e uma chave privada, que deve ser mantida em sigilo. A essência da segurança do algoritmo está na dificuldade de se fatorar um número formado por números primos muito extensos. A chave privada, que deve ser mantida em sigilo, é justamente a fatoração dos números primos.
+
+### Passo a passo
+
+De forma didática, vamos destrinchar o algoritmo passo a passo:
+
+**1)** Primeiramente, devem ser escolhidos aleatoriamente dois números primos `p` e `q`. Idealmente, esses primos devem ser extensos. A cada ano, com o avanço da capacidade de processamento computacional, a definição de "extenso" muda.
+
+**2)** Em seguida, é preciso fatorar `n ` de modo que `n = pq` . Assim, é preciso inserir os membros da fatoração na ***Função Totiente de Euler***. Como `p` e `q` são primos, temos:
+
+ `Φ(n) = Φ(p)Φ(q) = (p - 1)(q - 1)`.
+
+**3)** Depois, escolhemos um valor  `a`  definido entre   ` 1 < a < Φ(n)`. Além disso, é preciso garantir que `a` e `Φ(n)` sejam primos entre si, isto é, `mdc(a,Φ(n))=1`.  Com essa garantia, sabemos que `a` possui inverso multiplicativo módulo `Φ(n)`.
+
+```python
+def mdc(a, Φ):
+	
+    while a != 0:
+        Φ, a = a, Φ % a
+    return Φ
+```
+
+O código acima, que indica o ***Algoritmo de Euclides***, pode ser usado para testar se o `a` escolhido é primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
+
+**4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `a` módulo `Φ(n)`, isto é, `a*d  ≡ 1 (mod Φ(n))`
+
+Para o cálculo de `d`, utilizamos o ***Algoritmo de Euclides Estendido***. Note que calcular `d` é equivalente a resolver a equação diofantina `ad - my = 1`, onde `m = Φ(n)`.
+
+```python
+def alg_euclides_est(a, b):
+    #retorna (x, y) tal que a*x + b*y = 1
+    aux = b
+    d, x, y, z = 0, 1, 1, 0
+    while a != 0:
+        q, b, a = b // a, a, b % a
+        y, z = z, y - q * z
+        d, x = x, d - q * x
+    if 1%b != 0:
+        return "O sistema não tem solução"
+    else:
+        while d < 0:
+            d += aux
+    return d
+```
+
+
+
+### Criptografando a mensagem
+
+Para criptografar uma mensagem $m$ tal que $1 < m < n-1$ em uma mensagem $c$, basta fazer $m^a ≡ c ~~(mod ~~n)$. Aqui, utiliza-se a chave pública $(n, a)$.
+
+
+
+```python
+dict = {"a":10,"b":11,"c":12,"d":13,"e":14,"f":15,
+        "g":16,"h":17,"i":18,"j":19,"k":20,"l":21,
+        "m":22,"n":23,"o":24,"p":25,"q":26,
+        "r":27,"s":28,"t":29,"u":30,"v":31,"w":32,"x":33,"y":34,"z":35," ":36}
+
+
+
+```
+
+
+
+
+```python
+def char_to_num(string):
+
+string = string.lower()  
+
+lista_num = []
+
+for char in string:
+    #print (char) 
+    for i in dict:
+        #print (i)  
+        if char==i:
+            
+            lista_num.append(dict[i])
+            break
+return lista_num
+
+#print (char_to_num("a"))
+teste = char_to_num("matematica")
+print (teste)
+
+#print (char_to_num("a"))
+teste = char_to_num("matematica")
+print (teste)
+```
+
+
+
+```python
+def criptografia(alist, a, n): #recebe lista de números correspondente a letras
+    c = []
+    for m in alist:
+        c.append((m**a)%n)
+    return c
+
+```
+
+
+
+### Descriptografando a mensagem
+
+
+
+ Para recuperar a mensagem criptografada, basta fazer `c^d ≡ m~~ (mod~~n)`. Para isso, é necessário ter acesso à chave privada $d$, que só é calculada rapidamente se houver acesso aos primos $p$ e $q$.
+
+
+
+```python
+def decifrar(alist, d, n):
+    m = []
+    for c in alist:
+        m.append((c**a)%n)
+    return m
+
+def num_to_char(lista_num):
+
+lista_char = []
+
+for num in lista_num:
+    for i in dict:
+        if num==dict[i]:
+
+            lista_char.append(i)
+            break
+
+final_string = ""
+
+for i in lista_char:
+    final_string += str(i)
+
+return final_string
+```
+
+print (num_to_char(teste))
+
+
+Para verificar se o código está funcionando, escolhemos $p = 19$ e $q = 43$. Daí:
+
+$n = 19*43 = 817$
+
+$Φ(n) = 18*42 = 756$
+
+Agora, escolhemos $a$ tal que $a$ seja primo com $756$:
+
+`mdc(47, 756) # a = 47` é uma possível escolha
+
+
+
+Calculamos d:
+
+
+
+## A1 - Exercícios do livro do [S. C. Coutinho]
+
+### Capítulo 1
+
+#### Questão 1
 
 Na verdade, não era para fazer essa questão. A instrução é que apenas questões com indicação de "faça um programa..." sejam feitas.
 
 No entanto, quando eu comecei o trabalho eu achei que era para fazer todas as questões que **pudessem ser resolvidas** por um algoritmo rs. Então, acabei fazendo a questão 1. Foi bacana porque servia como teste unitário para outras questões.
-
-
 
 ```python
 '''fiz o algoritmo de euclides, mas não era suficiente
@@ -87,8 +252,6 @@ print (pretty_eea(272828282,3242))
 
 ```
 
-
-
 Output:
 
 ```python
@@ -111,7 +274,7 @@ mdc: 2, alpha: 697, beta: -58655556
 
 
 
-### Questão 8
+#### Questão 8
 
 Essa questão já é exatamente o que foi pedido. Basicamente, trata-se de uma implementação do algoritmo estendido de Euclides, como indicado pelo enunciado. A solução é:
 
@@ -187,7 +350,7 @@ Exemplo similar ao do livro com a=1234, b=54 e c= 3:  Sem solução
 
 
 
-### Questão 9
+#### Questão 9
 
 Achei essa questão bem legal. Na verdade, esse é o tipo de conteúdo que me empolga em matemática. Quando vi que o resultado do experimento computacional estava dando próximo ao resultado teórico tive uma sensação engraçada. Dá vontade de compartilhar com alguém rs.
 
@@ -272,9 +435,11 @@ Isto indica a convergência entre o resultado empírico e o resultado teórico
 
 
 
-## Capítulo 2
+----
 
-### Questão 3
+### Capítulo 2
+
+#### Questão 9
 
 Novamente, eu fiz uma questão sem precisar. E, mais uma vez, acabou sendo um pouco produtivo.
 
@@ -339,7 +504,7 @@ Como grupo controle, eu usei o site https://www.numberempire.com/numberfactorize
 
 
 
-### Questão 11
+#### Questão 11
 
 Essa questão de número altamente composto me causou um pouco de dúvida. Acho que a definição do Wikipedia me confundiu um pouco. Eu fiquei de tirar a dúvida com o Professor Luciano. Anotei na minha agenda duas vezes mas esqueci nas duas aulas.
 
@@ -414,7 +579,7 @@ O código está rápido mas a função que fiz para contar os divisores foi bem 
 
 
 
-### Questão 12
+#### Questão 12
 
 Essa questão exigiu apenas uma adaptação do que eu já tinha feito. Usei, inclusive, o trabalho passado de base. O código que fiz foi:
 
@@ -477,9 +642,13 @@ Dois fatores de  226899561  são:  ('factor_1', 18989.0, 'factor_2', 11949.0)
 
 
 
-## Capítulo 3
+----
 
-### Questão 10
+
+
+### Capítulo 3
+
+#### Questão 10
 
 Aqui foi necessário fazer o crivo de Eratóstenes. Essa é a parte do trabalho que mais me arrependo. Fiz um código que dá um retorno correto. Entretanto, está um pouco lento. Mas como estava preocupado em fazer todos antes de refatorar, passei para frente.  Não demora muito. Mas demora o suficiente para incomodar se a entrada for um inteiro expressivamente grande. O que está deixando lento é o "for" dentro do "while loop" que é desnecessário. A implementação foi direto da leitura do livro.
 
@@ -562,7 +731,7 @@ Questão (4): f(x) = 8x^2 -530x + 7681:  [31, 79, 229, 281, 443, 499, 673, 733, 
 
 
 
-### Questão 11
+#### Questão 11
 
 Achei questão bem interessante. Poderia ser um assunto de Análise Numérica. Fiquei curioso em quem inventou esse aproximador S(x). Muito curioso esse tanto de conta que parecem "arbitrárias" mas que acabam funcionando. O program para o problema é:
 
@@ -680,9 +849,7 @@ None
 
 Como dá para ver:  **S(x) é uma aproximação bem melhor do que [x/log(x)].**
 
-
-
-### Questão 12
+#### Questão 12
 
 Essa é outra questão interessante em que os experimentos computacionais corroboram o resultado teórico. O código é:
 
@@ -762,7 +929,7 @@ Ou seja, para um n grande, a proporção é praticamente 1.
 
 
 
-### Questão 13
+#### Questão 13
 
 Nas questões anteriores, meu erro de design do crivo de Eratóstenes não comprometeu a performance. Tudo funcionou rápido. Nesta questão, atrapalhou. Demorei a descobrir o valor: x=26861.
 
@@ -855,11 +1022,11 @@ Lento foi achar esse valor de x... Para encontrá-lo usei a parte do código que
 
 
 
-## Capítulo 4
+---
 
+### Capítulo 4
 
-
-### Questão 3
+#### Questão 3
 
 Novamente, fiz uma questão de cálculo de valores. E, mais uma vez, foi útil para fazer alguns testes e para ganhar maior confiança.
 
@@ -897,7 +1064,7 @@ Esse código retorna:
 
 
 
-### Questão 11
+#### Questão 11
 
  A solução dessa questão é bem curta:
 
@@ -928,9 +1095,9 @@ Implementação direta das instruções do livro que retorna:
 
 
 
-## Capítulo 5
+### Capítulo 5
 
-### Questão 16
+Questão 16
 
 O enunciado fala para usar o exercício 14... Mas acaba nem sendo necessário. O código da inversa é curtinho. Importante garantir que "p" não divide "a".
 
@@ -956,7 +1123,7 @@ Usei um site de cálculo online de inversa para checar se estava correto. O cód
 
 
 
-### Questão 17
+#### Questão 17
 
 Demorei um pouco a entender exatamente como chegaria na resposta. Depois de algumas contas no papel saiu:
 
@@ -996,7 +1163,7 @@ Se  x^2 congruente a 2 (mod 7), então x=4 ou -4:  [4.0, -4.0]
 
 
 
-### Questão 18
+#### Questão 18
 
 Essa questão novamente envolve o Crivo e, mais uma vez, "carreguei"  o peso de uma implementação ininial sub-ótima. Nesse momento do trabalho eu comecei a pensar que era melhor ter corrigido lá atrás. Eu achava que os capítulos fossem ser mais independentes...
 
@@ -1068,9 +1235,11 @@ Fazendo os exemplos do livro. Com a=2,5,10,14 são 2 primos. E com a=19 são 5 p
 
 
 
-# Capítulo 6
+---
 
-### Questão 10
+### Capítulo 6
+
+#### Questão 10
 
 Essa questão ficou um pouco longa e exigiu uma função não ingênua para encontrar os fatores. Foi preciso alterar o algoritmo do Crivo, complementando-o.
 
@@ -1203,7 +1372,7 @@ base:  7 , teste:  25
 
 
 
-### Questão 11
+#### Questão 11
 
 Existem apenas dois exemplos de  base 2 em que r=5*10^4. Eles são: **1093, 3511**
 
@@ -1293,12 +1462,12 @@ Para r=50000 o código demora um pouco pela forma como implementei o algoritmo d
 
 
 
-### Questão 9
+#### Questão 9
 
 Não consegui fazer essa questão. Falei com o colega Lucas Brito, que fez o curso ano passado. Ele me disse que também não tinha conseguido fazer uma das questões do livro. Imagino que seja essa.
 
 
 
-### Questão 8
+#### Questão 8
 
 Também não consegui. Essa acho que faltou um pouco de tempo e de organização. Espero que as questões que fiz a mais, os comentários, esse arquivo na web, ou outro fator possa compensar de alguma forma.
