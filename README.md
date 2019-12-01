@@ -4,15 +4,15 @@
 
  + Professor:  Luciano Castro.
  + Alunos:
-      + Pedro Delfino [A1 e A2]; e
-      + Bruna Fistarol [A2].
+      + Pedro Delfino **[A1 e A2]**; e
+      + Bruna Fistarol **[A2]**.
  + Data: 2019.2.
  + Tech Stack: Python 3. 
  + Projeto: 
    
      - A1: 
      
-        - Resolução das questões de programação do livro  "Números inteiros e Criptografia RSA" [S. C. Coutinho] do Capítulo 1 ao 6.
+        - Resolução das questões de programação do livro  *Números inteiros e Criptografia RSA* (**S. C. Coutinho**) do Capítulo 1 ao 6.
        
      - A2: 
      
@@ -23,32 +23,34 @@
 
 Conforme conversado um dia após a aula, apresentar o trabalho como arquivo markdown no github tem algumas vantagens:
 - não exige nenhuma instalação, basta abrir o link no navegador;
-- o formato markdown permite uma estética bacana que diferencia o código da linguagem natural;
+- o formato markdown permite uma estética bacana que diferencia o código computacional da linguagem natural;
 - o trabalho fica no github e, como legado, faz parte do portfólio do aluno. Cada vez mais, o github tem sido analisado como parte da entrevista de programadores.
 
 
 
 ## A2 - Implementação do RSA
 
-
-
 ### Introdução
 
 O algoritmo do RSA foi criado em 1978 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
 
-O sistema tem como base de funcionamento uma chave pública, amplamento divulgada por todos, e uma chave privada, que deve ser mantida em sigilo. A essência da segurança do algoritmo está na dificuldade de se fatorar um número formado por números primos muito extensos. A chave privada, que deve ser mantida em sigilo, é justamente a fatoração dos números primos.
+O sistema tem como base de funcionamento uma chave pública, de ampla divulgação, como seu telefone em uma antiga lista telefônica, e uma chave privada, que deve ser mantida em sigilo. A essência da segurança do algoritmo está na dificuldade de se fatorar um número formado pelo produto de primos muito grandes. A chave privada, que deve ser mantida em sigilo, é justamente a fatoração dos números primos. 
+
+Por exemplo, o número ` 91 ` poderia ser a chave pública e, pela sua fatoração, sabemos que ele é formado pelo produto de dois primos `13` e `7`.  Esse exemplo é meramente didático, já que `91` é um número muito pequeno para garantir a segurança do sistema.
+
+
 
 ### Passo a passo
 
-De forma didática, vamos destrinchar o algoritmo passo a passo:
+De forma didática, vamos destrinchar o algoritmo em vários passos:
 
-**1)** Primeiramente, devem ser escolhidos aleatoriamente dois números primos `p` e `q`. Idealmente, esses primos devem ser extensos. A cada ano, com o avanço da capacidade de processamento computacional, a definição de "extenso" muda.
+**1)** Primeiramente, devem ser escolhidos aleatoriamente dois números primos `p` e `q`. Idealmente, esses primos devem ser grandes. A cada ano, com o avanço da capacidade de processamento computacional, a definição de grande muda. Hoje em dia, de acordo com a literatura da área, a magnitude de (???) é considerada adequada.  
 
 **2)** Em seguida, é preciso fatorar `n ` de modo que `n = pq` . Assim, é preciso inserir os membros da fatoração na ***Função Totiente de Euler***. Como `p` e `q` são primos, temos:
 
  `Φ(n) = Φ(p)Φ(q) = (p - 1)(q - 1)`.
 
-**3)** Depois, escolhemos um valor  `a`  definido entre   ` 1 < a < Φ(n)`. Além disso, é preciso garantir que `a` e `Φ(n)` sejam primos entre si, isto é, `mdc(a,Φ(n))=1`.  Com essa garantia, sabemos que `a` possui inverso multiplicativo módulo `Φ(n)`.
+**3)** Depois, escolhemos um valor  `a`  definido entre   ` 1 < a < Φ(n)`. Além disso, é preciso garantir que `a` e `Φ(n)` sejam primos entre si, isto é, `MDC(a,Φ(n))=1`.  Com essa garantia, sabemos que `a` **possui inverso multiplicativo** Módulo `Φ(n)`.
 
 ```python
 def mdc(a, Φ):
@@ -58,7 +60,7 @@ def mdc(a, Φ):
     return Φ
 ```
 
-O código acima, que indica o ***Algoritmo de Euclides***, pode ser usado para testar se o `a` escolhido é primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
+O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
 
 **4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `a` módulo `Φ(n)`, isto é, `a*d  ≡ 1 (mod Φ(n))`
 
@@ -85,21 +87,29 @@ def alg_euclides_est(a, b):
 
 ### Criptografando a mensagem
 
-Para criptografar uma mensagem $m$ tal que $1 < m < n-1$ em uma mensagem $c$, basta fazer $m^a ≡ c ~~(mod ~~n)$. Aqui, utiliza-se a chave pública $(n, a)$.
+Para criptografar uma mensagem `m` tal que `1 < m < n-1` em uma mensagem `c`, basta fazer :
+`m^a ≡ c (mod n)`. Aqui, utiliza-se a chave pública `(n, a)`.
 
+A criptografia RSA utiliza aritmética modular e, consequentemente, trabalha com mensagens que são *a* *priori* números. No entanto, a comunicação entre pessoas normalmente se dá por meio de letras.  Assim, resolvemos fazer uma tabela de equivalência entre letras e números.  Para sermos didáticos, definimos que as 25 letras do alfabeto e o caracter usado para "espaço" (portanto, 26 caracteres) seriam representados por 26 números, do digíto `10` até o dígito `36`.
 
+Há de ser ressaltado que acentos e caracteres especiais como `ç` não entraram na modelagem. Assim,a palavra `oi`, por exemplo, seria formada pelos número `2418`, sendo que o algarismo `24` indica a letra `o`  e o algarismo `18` aponta a letra `i`. A tabela abaixo resume a equivalência.
+
+[colocar imagem do Google]
+
+Essa equivalência **não é um componente do RSA**. Trata-se apenas de uma adaptação que inserimos no exercício para enviar mensagens que não fossem numéricas.
+
+Aliás, cabe dizer que uma representação de letras por números é, de certa forma, uma criptografia. Inclusive, seria possível definir uma conversão de letras para números mais sofisticada do que a modelagem acima. Por exemplo, cada letra poderia ser representada por números que não fossem consecutivos e que fossem maiores que 10^7 e menores que 10^8. 
+
+Ainda na nossa modelagem didática citada acima, em termos computacionais e dentro da linguagem Python, a representação foi feita a partir de um dicionário:
 
 ```python
 dict = {"a":10,"b":11,"c":12,"d":13,"e":14,"f":15,
         "g":16,"h":17,"i":18,"j":19,"k":20,"l":21,
         "m":22,"n":23,"o":24,"p":25,"q":26,
         "r":27,"s":28,"t":29,"u":30,"v":31,"w":32,"x":33,"y":34,"z":35," ":36}
-
-
-
 ```
 
-
+A função abaixo converte um conjunto de caracteres em um único número:
 
 
 ```python
@@ -130,6 +140,10 @@ print (teste)
 
 
 
+Após a conversão da mensagem em letras para um número, basta aplicar a criptografia RSA:
+
+ 
+
 ```python
 def criptografia(alist, a, n): #recebe lista de números correspondente a letras
     c = []
@@ -145,9 +159,7 @@ def criptografia(alist, a, n): #recebe lista de números correspondente a letras
 
 
 
- Para recuperar a mensagem criptografada, basta fazer `c^d ≡ m~~ (mod~~n)`. Para isso, é necessário ter acesso à chave privada $d$, que só é calculada rapidamente se houver acesso aos primos $p$ e $q$.
-
-
+Para recuperar a mensagem criptografada, basta fazer `c^d ≡ m (mod n)`. Para isso, é necessário ter acesso à chave privada `d`. Cabe ressaltar que a chave privada `d`  **só é calculada rapidamente** se houver acesso aos primos `p` e `q`.
 
 ```python
 def decifrar(alist, d, n):
@@ -156,6 +168,13 @@ def decifrar(alist, d, n):
         m.append((c**a)%n)
     return m
 
+```
+
+
+
+Perceba que a função acima decifra a mensagem. Entretanto, o *output* é um **número!** Portanto, para ser facilmente compreendido o que foi enviado precisamos usar a tabela de equivalência citada anteriormente e converter os números para letras. Assim, usa-se a função:
+
+```python
 def num_to_char(lista_num):
 
 lista_char = []
@@ -175,26 +194,30 @@ for i in lista_char:
 return final_string
 ```
 
-print (num_to_char(teste))
 
 
-Para verificar se o código está funcionando, escolhemos $p = 19$ e $q = 43$. Daí:
 
-$n = 19*43 = 817$
+Para verificar se o código está funcionando, escolhemos `p = 19` e `q = 43`. Assim, temos:
 
-$Φ(n) = 18*42 = 756$
+`n = 19*43 = 817`
 
-Agora, escolhemos $a$ tal que $a$ seja primo com $756$:
+`Φ(n) = 18*42 = 756`
+
+Agora, escolhemos `a` tal que `a` seja primo com `756`:
 
 `mdc(47, 756) # a = 47` é uma possível escolha
 
+Calculando `d`:
 
 
-Calculamos d:
 
 
 
-## A1 - Exercícios do livro do [S. C. Coutinho]
+[fazer um exemplo de ponta a ponta dentro do texto]
+
+
+
+## A1 - Exercícios do livro do S. C. Coutinho
 
 ### Capítulo 1
 
