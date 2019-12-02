@@ -141,7 +141,11 @@ def char_to_num(string):
                 
                 lista_num.append(dict[i])
                 break
-    return lista_num
+    string = ""
+    for i in lista_num:
+        string += str(i)
+       
+    return string
 ```
 
 
@@ -235,10 +239,6 @@ Agora, escolhemos `a` tal que `a` seja primo com `756`:
 Calculando `d`:
 
 
-
-
-
-[fazer um exemplo de ponta a ponta dentro do texto]
 
 
 
