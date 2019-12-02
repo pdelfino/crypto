@@ -225,20 +225,60 @@ def num_to_char(lista_num):
 
 
 
+### Exemplo de mensagem numérica criptografada 
 
-Para verificar se o código está funcionando, escolhemos `p = 19` e `q = 43`. Assim, temos:
+
+Para verificar se o código está funcionando, escolhemos o par de primos `p = 19` e `q = 43`. Assim, temos:
 
 `n = 19*43 = 817`
 
 `Φ(n) = 18*42 = 756`
 
-Agora, escolhemos `a` tal que `a` seja primo com `756`:
+Agora, escolhemos `e` tal que `e` seja co-primo com `756`. Uma possibilidade é `e=47`, pois :
 
-`mdc(47, 756) # a = 47` é uma possível escolha
+`mdc(47, 756)==1 ` 
 
-Calculando `d`:
+Agora, precisamos encontrar a inversa de `47` em `Φ(817) = 756`, isso pode ser feito mediante a função definida anteriormente:
+
+```python
+ print (inverse_multiplicative(47,756))
+
+>>> 563
+```
+
+Portanto, com o retorno acima, temos `d=563`.
+
+Isso pode ser verificado por meio do **teste de sanidade**:
+
+` e * d === 1 (mod Φ(n))`
+
+No caso,
+
+`47 * 563 === 1 ( mod 756)       ` 
+
+Antes de criptografar, cabe enfatizar que nossa **chave pública** é formada pelo par `(e,n)`, no caso, `(47,817)`.
+
+Agora, chegamos ao momento de criptografar a mensagem. Suponha que queremos enviar a mensagem `42`, afinal, esse é o sentido da vida rs. Portanto, `m=42`.
+
+Agora, vamos criptografar a mensagem, dessa forma:
+
+` m^e (mod n) = (42)^47 (mod 817)  = 472 (mod 817)     ` 
+
+ Portanto, nossa mensagem, após o processo de criptografia é `472`. Chamaremos a mensagem criptografa de `c`. Portanto, `c=472`.          
+
+Agora, vamos descriptografá-la:
+
+`c^d==`
 
 
+
+------
+
+------
+
+-------
+
+------
 
 
 

@@ -21,5 +21,8 @@ def inverse_multiplicative(a, b):
     else:
         return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 
-for i in range (100,10000):
-    print (inverse_multiplicative(i,237))
+#for i in range (100,10000):
+ #   print (inverse_multiplicative(i,237))
+
+print (inverse_multiplicative(47,756))
+
