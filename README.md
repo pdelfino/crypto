@@ -317,13 +317,40 @@ print (char_to_num('matematica'))
 
 Assim, a mensagem "matematica"  (com o acento agudo ignorado) passa a ser: `m = 22102914221029181210`
 
-Antes de seguir adiante é importante particionar a mensagem em blocos menores que `n`.
+Note que a mensagem `m` acabou ficando um número muito superior ao `n=817`. Assim, a informação seria perdida. Portanto, seguindo a orientação de S. C. Coutinho no livro de base do curso, é preciso particionar a mensagem `m` em blocos. Como o próprio autor comenta, é possível fazer isso de diferentes maneiras. 
+
+Foi importante evitar que o dígito 0 aparecesse como primeiro dígito de algum membro do bloco e decidimos por definir como máximo o número 129. Assm, o resultado da partição em blocos é:
+
+```python
+print(particao('22102914221029181210', 129))
+
+>>> [22, 102, 91, 42, 2, 102, 91, 81, 2, 10]
+
+```
+
+Depois disso, vamos criptografar cada membro da lista:
+
+```python
+print (criptografia([22, 102, 91, 42, 2, 102, 91, 81, 2, 10], 341, 817))
+
+>>>> [469, 752, 717, 214, 333, 752, 717, 745, 333, 154]   
+```
+
+O resultado é que cada bloco foi criptografado. Assim, o próximo passo é descriptografar o bloco criptografado acima. Para isso, é preciso descriptografar:
 
 
 
+```python
+bloco_matematica = [469, 752, 717, 214, 333, 752, 717, 745, 333, 154]
+
+print (decifrar(bloco_matematica, 65537,817))
+
+>>> [22, 102, 91, 42, 2, 102, 91, 81, 2, 10]
 
 
-Depois disso, vamos criptografar a mensagem:
+```
+
+
 
 ` m^e (mod n) ≡  (22102914221029181210)^65537 (mod 817)  ≡  144 (mod 817)     ` 
 
