@@ -268,7 +268,15 @@ Agora, vamos criptografar a mensagem, dessa forma:
 
 Agora, vamos descriptografá-la:
 
-`c^d==`
+`c^d (mod n) = 472^563 (mod 817) = 42 = m `
+
+
+
+### Exemplo de mensagem textual criptografada
+
+
+
+### Teste de Primalidade Miller–Rabin
 
 
 
