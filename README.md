@@ -183,11 +183,28 @@ print (teste)
 
 
 
-Após a conversão da mensagem em letras para um número, basta aplicar a criptografia RSA:
+Após a conversão da mensagem em letras para um número, é necessário quebrar em blocos o número gerado. Depois, basta aplicar a criptografia RSA:
 
  
 
 ```python
+def particao(N, n):
+    a = 0
+    b = 1
+    saida = []
+    while b != len(N):
+        while int(N[a:b]) < n:
+            b += 1
+            if b == len(N) + 1:
+                saida.append(int(N[a:b - 1]))    
+                return saida
+        b -= 1
+        if N[b] == '0':
+            b -= 1
+        saida.append(int(N[a:b]))
+        a = b
+        b +=1
+
 def criptografia(alist, a, n): #recebe lista de números correspondente a letras
     c = []
     for m in alist:
