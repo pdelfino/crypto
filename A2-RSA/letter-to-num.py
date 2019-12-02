@@ -21,12 +21,16 @@ def char_to_num(string):
                 
                 lista_num.append(dict[i])
                 break
-    return lista_num
+    string = ""
+    for i in lista_num:
+        string += str(i)
+
+    return string
 
 #print (char_to_num("a"))
 teste= char_to_num("BRENO bumbum guloso")
 teste_bruna = char_to_num("matematica")
-print (teste_bruna)
+#print (teste_bruna)
 
 def num_to_char(lista_num):
 
@@ -46,5 +50,7 @@ def num_to_char(lista_num):
 
     return final_string
 
-print (num_to_char(teste))
-print (num_to_char(teste_bruna))
+#print (num_to_char(teste))
+#print (num_to_char(teste_bruna))
+
+print (char_to_num('matematica'))

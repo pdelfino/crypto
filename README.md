@@ -179,13 +179,12 @@ def criptografia(alist, a, n): #recebe lista de números
         c.append((m**a)%n)
     return c
 
+
 ```
 
 
 
 ### Descriptografando a mensagem
-
-
 
 Para recuperar a mensagem criptografada, basta fazer `c^d ≡ m (mod n)`. Para isso, é necessário ter acesso à chave privada `d`. Cabe ressaltar que a chave privada `d`  **só é calculada rapidamente** se houver acesso aos primos `p` e `q`.
 
@@ -282,7 +281,57 @@ Portanto, os valores `n` e de `Φ(n)` também serão mantidos:
 
 `Φ(n) = 18*42 = 756`
 
- 
+Dessa vez, vamos usar como expoente o número `e=65537` . A inversa multiplicativa está garantida, pois, `MDC(756,65537)=1` .
+
+Em seguida, precisamos encontrar a inversa de `65537` em `Φ(817) = 756`, isso pode ser feito mediante a função definida anteriormente:
+
+```python
+ print (inverse_multiplicative(65537,756))
+
+>>> 341
+```
+
+Portanto, com o retorno acima, temos `d=341`.
+
+Isso pode ser verificado por meio do **teste de sanidade**:
+
+` e * d ≡ 1 (mod Φ(n))`
+
+No caso,
+
+`65537 * 341 ≡  1 ( mod 756)       ` 
+
+Antes de criptografar, cabe enfatizar que nossa **chave pública** é formada pelo par `(e,n)`, no caso, `(65537,817)`.
+
+Finalmente, chegamos ao momento de criptografar a mensagem. Suponha que queremos enviar a mensagem `matematica`, afinal, esse é o sentido da vida rs. Portanto, `m=matematica`.
+
+Nesse momento, é preciso fazer a pré-codificação chamando a função que converte letras em números:
+
+```python
+print (char_to_num('matematica'))
+
+>>> 22102914221029181210
+```
+
+
+
+Assim, a mensagem "matematica"  (com o acento agudo ignorado) passa a ser: `m = 22102914221029181210`
+
+Antes de seguir adiante é importante particionar a mensagem em blocos menores que `n`.
+
+
+
+
+
+Depois disso, vamos criptografar a mensagem:
+
+` m^e (mod n) ≡  (22102914221029181210)^65537 (mod 817)  ≡  144 (mod 817)     ` 
+
+Portanto, nossa mensagem, após o processo de criptografia é `144`. Chamaremos a mensagem criptografa de `c`. Portanto, `c=144`.          
+
+Para descriptografá-la:
+
+`c^d (mod n) ≡  144^341 (mod 817) ≡  425 = m`
 
 ### Teste de Primalidade Miller–Rabin
 
