@@ -125,23 +125,22 @@ A função abaixo converte um conjunto de caracteres em um único número:
 ```python
 def char_to_num(string):
 
-string = string.lower()  
+    string = string.lower()  
+    
+    lista_num = []
 
-lista_num = []
-
-for char in string:
-    #print (char) 
-    for i in dict:
-        #print (i)  
-        if char==i:
-            
-            lista_num.append(dict[i])
-            break
-return lista_num
-
-#print (char_to_num("a"))
-teste = char_to_num("matematica")
-print (teste)
+    for char in string:
+        #print (char) 
+        for i in dict:
+            #print (i)  
+            if char==i:
+                
+                lista_num.append(dict[i])
+                break
+    string = ""            
+    for i in lista_num:
+        string += str(i)
+    return string
 
 #print (char_to_num("a"))
 teste = char_to_num("matematica")
