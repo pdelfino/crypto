@@ -1,0 +1,29 @@
+def num_to_char(lista_num):
+
+    string = ""
+    
+    for i in lista_num:
+        string += str(i)
+    
+    lista = []
+    
+    for i in range(int(len(string)/2)):
+        lista.append(int(string[2*i:2*i+2]))
+
+    lista_char = []
+
+    for num in lista:
+        for i in dict:
+            if num==dict[i]:
+
+                lista_char.append(i)
+                break
+
+    final_string = ""
+    
+    for i in lista_char:
+        final_string += str(i)
+
+    return final_string
+
+print (num_to_char(teste))
