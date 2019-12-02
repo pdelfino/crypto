@@ -43,14 +43,15 @@ def num_to_char(lista_num):
                 lista_char.append(i)
                 break
 
-    final_string = ""
+    final_string = " "
     
     for i in lista_char:
         final_string += str(i)
 
     return final_string
 
-#print (num_to_char(teste))
-#print (num_to_char(teste_bruna))
+print (num_to_char(teste))
+print (num_to_char(teste_bruna))
+#print (char_to_num('matematica'))
 
-print (char_to_num('matematica'))
+print (num_to_char(char_to_num('matematica')))

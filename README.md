@@ -50,7 +50,7 @@ De forma didática, vamos destrinchar o algoritmo em vários passos:
 
  `Φ(n) = Φ(p)Φ(q) = (p - 1)(q - 1)`.
 
-**3)** Depois, escolhemos um valor  `a`  definido entre   ` 1 < a < Φ(n)`. Além disso, é preciso garantir que `a` e `Φ(n)` sejam primos entre si, isto é, `MDC(a,Φ(n))=1`.  Com essa garantia, sabemos que `a` **possui inverso multiplicativo** Módulo `Φ(n)`.
+**3)** Depois, escolhemos um valor  `e`  definido entre   ` 1 < e < Φ(n)`. Além disso, é preciso garantir que `e` e `Φ(n)` sejam primos entre si, isto é, `MDC(e,Φ(n))=1`.  Com essa garantia, sabemos que `e` **possui inverso multiplicativo** Módulo `Φ(n)`.
 
 ```python
 def mdc(a, Φ):
@@ -62,9 +62,9 @@ def mdc(a, Φ):
 
 O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é co-primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
 
-**4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `a`  em módulo `Φ(n)`, isto é, `a*d  ≡ 1 (mod Φ(n))`
+**4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `e`  em módulo `Φ(n)`, isto é, `e*d  ≡ 1 (mod Φ(n))`
 
-Para o cálculo de `d`, utilizamos o ***Algoritmo de Euclides Estendido***. Note que calcular `d` é equivalente a resolver a equação diofantina `ad - my = 1`, onde `m = Φ(n)`.
+Para o cálculo de `d`, utilizamos o ***Algoritmo de Euclides Estendido***. Note que calcular `d` é equivalente a resolver a equação diofantina `ed - my = 1`, onde `m = Φ(n)`.
 
 ```python
 def alg_euclides_est(a, b):
@@ -92,6 +92,18 @@ def inverse_multiplicative(a, b):
     else:
         return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 ```
+
+
+
+### O expoente: `e` 
+
+Em geral, a comunidade de criptografia RSA usa o número `65537` como expoente público padrão.  Este número apresenta algumas vantagens:
+
+- ele é primo, aliás, é primo do tipo **Primo de Fermat** (assim como 3,5, 17 e 257) ;
+- é grande o suficiente para evitar ataques simples; e,
+- pode ser computado rapidamente em operações binários.
+
+Portanto, números menores que `65537` são mais perigosos e números maiores que `65537` são mais custosos computacionalmente. Em virtude desse padrão, o *software* e o *hardware* envolvendo criptografia foi otimizado supondo que esse seria o expoente público.
 
 
 
@@ -152,8 +164,6 @@ def char_to_num(string):
 
 Após a conversão da mensagem em letras para um número, é necessário quebrar em blocos o número gerado. Depois, basta aplicar a criptografia RSA:
 
- 
-
 ```python
 def particao(N, n):
     a = 0
@@ -204,9 +214,19 @@ Perceba que a função acima decifra a mensagem. Entretanto, o *output* é um **
 ```python
 def num_to_char(lista_num):
 
+    string = ""
+    
+    for i in lista_num:
+        string += str(i)
+    
+    lista = []
+    
+    for i in range(int(len(string)/2)):
+        lista.append(int(string[2*i:2*i+2]))
+
     lista_char = []
 
-    for num in lista_num:
+    for num in lista:
         for i in dict:
             if num==dict[i]:
 
@@ -219,6 +239,8 @@ def num_to_char(lista_num):
         final_string += str(i)
 
     return final_string
+
+print (num_to_char(teste))
 
 ```
 
@@ -360,6 +382,22 @@ Diferentemente do exemplo estritamente numérico, no caso da mensagem de texto, 
 ​								 [...]
 
 ` m^e (mod n) ≡  (439)^341 (mod 817)  ≡  10 (mod 817) `
+
+
+
+Por fim, para que o resultado fique legível, é preciso converter os números para as letras. Assim,
+
+```python
+bloco_descriptografado_num = [22, 102, 91, 422, 102, 91, 812, 10]
+
+print (num_to_char(bloco_descriptografado_num))
+
+>> matematica
+```
+
+
+
+
 
 
 
