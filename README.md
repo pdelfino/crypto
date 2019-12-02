@@ -32,7 +32,7 @@ Conforme conversado um dia após a aula, apresentar o trabalho como arquivo mark
 
 ### Introdução
 
-O algoritmo do RSA foi criado em 1978 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
+O algoritmo do RSA foi publicado em 1977 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
 
 O sistema tem como base de funcionamento uma chave pública, de ampla divulgação, como seu telefone em uma antiga lista telefônica, e uma chave privada, que deve ser mantida em sigilo. A essência da segurança do algoritmo está na dificuldade de se fatorar um número formado pelo produto de primos muito grandes. A chave privada, que deve ser mantida em sigilo, é justamente a fatoração dos números primos. 
 
@@ -44,7 +44,7 @@ Por exemplo, o número ` 91 ` poderia ser a chave pública e, pela sua fatoraç�
 
 De forma didática, vamos destrinchar o algoritmo em vários passos:
 
-**1)** Primeiramente, devem ser escolhidos aleatoriamente dois números primos `p` e `q`. Idealmente, esses primos devem ser grandes. A cada ano, com o avanço da capacidade de processamento computacional, a definição de grande muda. Hoje em dia, de acordo com a literatura da área, a magnitude de (???) é considerada adequada.  
+**1)** Primeiramente, devem ser escolhidos aleatoriamente dois números primos `p` e `q`. Idealmente, esses primos devem ser grandes e **não podem ser próximos um do outro**. De tempos em tempos, com o avanço da capacidade de processamento computacional, a definição de grande muda. Hoje em dia, de acordo com a literatura da área, **o tamanho recomendado é de 1024 bits (309 dígitos decimais), 2048 bits (617 dígitos decimais) ou 4096 bits (1.234 dígitos decimais).**  
 
 **2)** Em seguida, é preciso fatorar `n ` de modo que `n = pq` . Assim, é preciso inserir os membros da fatoração na ***Função Totiente de Euler***. Como `p` e `q` são primos, temos:
 
@@ -60,9 +60,9 @@ def mdc(a, Φ):
     return Φ
 ```
 
-O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
+O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é co-primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
 
-**4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `a` módulo `Φ(n)`, isto é, `a*d  ≡ 1 (mod Φ(n))`
+**4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `a`  em módulo `Φ(n)`, isto é, `a*d  ≡ 1 (mod Φ(n))`
 
 Para o cálculo de `d`, utilizamos o ***Algoritmo de Euclides Estendido***. Note que calcular `d` é equivalente a resolver a equação diofantina `ad - my = 1`, onde `m = Φ(n)`.
 
@@ -102,13 +102,17 @@ Para criptografar uma mensagem `m` tal que `1 < m < n-1` em uma mensagem `c`, ba
 
 A criptografia RSA utiliza aritmética modular e, consequentemente, trabalha com mensagens que são *a* *priori* números. No entanto, a comunicação entre pessoas normalmente se dá por meio de letras.  Assim, resolvemos fazer uma tabela de equivalência entre letras e números.  Para sermos didáticos, definimos que as 25 letras do alfabeto e o caracter usado para "espaço" (portanto, 26 caracteres) seriam representados por 26 números, do digíto `10` até o dígito `36`.
 
-Há de ser ressaltado que acentos e caracteres especiais como `ç` não entraram na modelagem. Assim,a palavra `oi`, por exemplo, seria formada pelos número `2418`, sendo que o algarismo `24` indica a letra `o`  e o algarismo `18` aponta a letra `i`. A tabela abaixo resume a equivalência.
+Há de ser ressaltado que acentos e caracteres especiais como `ç` não entraram na modelagem. Assim, a palavra `oi`, por exemplo, seria formada pelos número `2418`, sendo que o algarismo `24` indica a letra `o`  e o algarismo `18` aponta a letra `i`. A tabela abaixo resume a equivalência:
 
-[colocar imagem do Google]
 
-Essa equivalência **não é um componente do RSA**. Trata-se apenas de uma adaptação que inserimos no exercício para enviar mensagens que não fossem numéricas.
 
-Aliás, cabe dizer que uma representação de letras por números é, de certa forma, uma criptografia. Inclusive, seria possível definir uma conversão de letras para números mais sofisticada do que a modelagem acima. Por exemplo, cada letra poderia ser representada por números que não fossem consecutivos e que fossem maiores que 10^7 e menores que 10^8. 
+![](https://github.com/pdelfino/crypto/tree/master/A2-RSA/tabela-num-letter.png)
+
+
+
+Essa equivalência **não é um componente do RSA**. Trata-se apenas de uma adaptação que inserimos no exercício para enviar mensagens que não fossem numéricas. No livro de S.C. Coutinho, o autor denomina esse processo de **Pré-Codificação**.
+
+Aliás, cabe dizer que alguns cuidados devem ser tomados para evitar que um ataque de base frequentista interprete a mensagem. [comentar melhor]
 
 Ainda na nossa modelagem didática citada acima, em termos computacionais e dentro da linguagem Python, a representação foi feita a partir de um dicionário:
 
@@ -125,19 +129,19 @@ A função abaixo converte um conjunto de caracteres em um único número:
 ```python
 def char_to_num(string):
 
-string = string.lower()  
+    string = string.lower()  
 
-lista_num = []
+    lista_num = []
 
-for char in string:
-    #print (char) 
-    for i in dict:
-        #print (i)  
-        if char==i:
-            
-            lista_num.append(dict[i])
-            break
-return lista_num
+    for char in string:
+        #print (char) 
+        for i in dict:
+            #print (i)  
+            if char==i:
+
+                lista_num.append(dict[i])
+                break
+    return lista_num
 
 #print (char_to_num("a"))
 teste = char_to_num("matematica")
