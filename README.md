@@ -322,18 +322,19 @@ Note que a mensagem `m` acabou ficando um número muito superior ao `n=817`. Ass
 Foi importante evitar que o dígito 0 aparecesse como primeiro dígito de algum membro do bloco e decidimos por definir como máximo o número 129. Assim, o resultado da partição em blocos é:
 
 ```python
-print(particao('22102914221029181210', 129))
+print(particao('22102914221029181210', 817))
 
->>> [22, 102, 91, 42, 2, 102, 91, 81, 2, 10]
+>>> [22, 102, 91, 422, 102, 91, 812, 10]
 
 ```
 
 Depois disso, vamos criptografar cada membro da lista:
 
 ```python
-print (criptografia([22, 102, 91, 42, 2, 102, 91, 81, 2, 10], 65537, 817))
+print (criptografia([22, 102, 91, 422, 102, 91, 812, 10], 65537, 817))
 
->>>> [70, 11, 71, 214, 352, 11, 71, 574, 352, 439]
+>>>> [70, 11, 71, 176, 11, 71, 15, 439]
+
   
 ```
 
@@ -342,25 +343,25 @@ O resultado é que cada bloco foi criptografado. Assim, o próximo passo é desc
 
 
 ```python
-bloco_matematica = [70, 11, 71, 214, 352, 11, 71, 574, 352, 439]
+bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
 
 print (decifrar(bloco_matematica, 341,817))
 
->>> [22, 102, 91, 42, 2, 102, 91, 81, 2, 10]
-
-
+>>> [22, 102, 91, 422, 102, 91, 812, 10]
 
 ```
 
+Diferentemente do exemplo estritamente numérico, no caso da mensagem de texto, ocorre a decifragem de cada bloco, portanto:
+
+` m^e (mod n) ≡  (70)^341 (mod 817)  ≡  22 (mod 817)     ` 
+
+` m^e (mod n) ≡  (11)^341 (mod 817)  ≡  102 (mod 817) `
+
+​								 [...]
+
+` m^e (mod n) ≡  (439)^341 (mod 817)  ≡  10 (mod 817) `
 
 
-` m^e (mod n) ≡  (22102914221029181210)^65537 (mod 817)  ≡  144 (mod 817)     ` 
-
-Portanto, nossa mensagem, após o processo de criptografia é `144`. Chamaremos a mensagem criptografa de `c`. Portanto, `c=144`.          
-
-Para descriptografá-la:
-
-`c^d (mod n) ≡  144^341 (mod 817) ≡  425 = m`
 
 ### Teste de Primalidade Miller–Rabin
 

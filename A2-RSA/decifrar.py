@@ -1,4 +1,4 @@
-bloco_matematica = [70, 11, 71, 214, 352, 11, 71, 574, 352, 439]
+bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
 
 def decifrar(alist, a, n):
     m = []

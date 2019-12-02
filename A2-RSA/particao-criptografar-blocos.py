@@ -15,7 +15,8 @@ def particao(N, n):
         a = b
         b +=1
 
-output = (particao('22102914221029181210', 129))
+output = (particao('22102914221029181210', 817))
+print (output)
 
 def criptografia(alist, a, n): #recebe lista de números
     c = []
