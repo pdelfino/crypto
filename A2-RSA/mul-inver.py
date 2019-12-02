@@ -24,5 +24,5 @@ def inverse_multiplicative(a, b):
 #for i in range (100,10000):
  #   print (inverse_multiplicative(i,237))
 
-print (inverse_multiplicative(47,756))
+print (inverse_multiplicative(65537,756))
 
