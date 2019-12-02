@@ -7,7 +7,7 @@
       + Pedro Delfino **[A1 e A2]**; e
       + Bruna Fistarol **[A2]**.
  + Data: 2019.2.
- + Tech Stack: Python 3. 
+ + Tech Stack: Python 3.  
  + Projeto: 
    
      - A1: 
@@ -129,6 +129,7 @@ A função abaixo converte um conjunto de caracteres em um único número:
 ```python
 def char_to_num(string):
 
+<<<<<<< HEAD
     string = string.lower()  
 
     lista_num = []
@@ -142,10 +143,38 @@ def char_to_num(string):
                 lista_num.append(dict[i])
                 break
     return lista_num
+||||||| merged common ancestors
+string = string.lower()  
 
-#print (char_to_num("a"))
-teste = char_to_num("matematica")
-print (teste)
+lista_num = []
+
+for char in string:
+    #print (char) 
+    for i in dict:
+        #print (i)  
+        if char==i:
+            
+            lista_num.append(dict[i])
+            break
+return lista_num
+=======
+    string = string.lower()  
+    
+    lista_num = []
+>>>>>>> 83ce111383a3528fd88f821092b2f89604435c21
+
+    for char in string:
+        #print (char) 
+        for i in dict:
+            #print (i)  
+            if char==i:
+                
+                lista_num.append(dict[i])
+                break
+    string = ""            
+    for i in lista_num:
+        string += str(i)
+    return string
 
 #print (char_to_num("a"))
 teste = char_to_num("matematica")
