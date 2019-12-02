@@ -11,7 +11,7 @@ def alg_euclides_est(a, b):
 print (alg_euclides_est(7,14))
 
 # retorna x de modo que:    (x*a) === 1 (mod b)
-def mulinv(a, b):
+def inverse_multiplicative(a, b):
     output = alg_euclides_est(a, b)
     g = output[0]
     x = output[1]
@@ -22,4 +22,4 @@ def mulinv(a, b):
         return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 
 for i in range (100,10000):
-    print (mulinv(i,237))
+    print (inverse_multiplicative(i,237))

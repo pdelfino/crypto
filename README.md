@@ -69,18 +69,28 @@ Para o cálculo de `d`, utilizamos o ***Algoritmo de Euclides Estendido***. Note
 ```python
 def alg_euclides_est(a, b):
     #retorna (x, y) tal que a*x + b*y = 1
-    aux = b
     d, x, y, z = 0, 1, 1, 0
     while a != 0:
         q, b, a = b // a, a, b % a
         y, z = z, y - q * z
         d, x = x, d - q * x
-    if 1%b != 0:
-        return "O sistema não tem solução"
+    return b, d, y
+
+```
+
+O algoritmo de Euclides estentido é peça chave no cálculo da inversa multiplicativa:
+
+```python
+# retorna x de modo que:    (x*a) === 1 (mod b)
+def inverse_multiplicative(a, b):
+    output = alg_euclides_est(a, b)
+    g = output[0]
+    x = output[1]
+
+    if g == 1:
+        return x % b
     else:
-        while d < 0:
-            d += aux
-    return d
+        return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 ```
 
 
