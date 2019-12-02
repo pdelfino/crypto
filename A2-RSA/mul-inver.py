@@ -12,8 +12,10 @@ print (alg_euclides_est(7,14))
 
 # retorna x de modo que:    (x*a) === 1 (mod b)
 def mulinv(a, b):
-    g, x, _ = alg_euclides_est(a, b)
-    
+    output = alg_euclides_est(a, b)
+    g = output[0]
+    x = output[1]
+
     if g == 1:
         return x % b
     else:
