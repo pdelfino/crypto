@@ -171,7 +171,7 @@ def particao(N, n):
         saida.append(int(N[a:b]))
         a = b
         b +=1
-particao('22102914221029181210', 129)
+particao('22102914221029181210', 817)
 
 def criptografia(alist, a, n): #recebe lista de números
     c = []
@@ -319,7 +319,7 @@ Assim, a mensagem "matematica"  (com o acento agudo ignorado) passa a ser: `m = 
 
 Note que a mensagem `m` acabou ficando um número muito superior ao `n=817`. Assim, a informação seria perdida. Portanto, seguindo a orientação de S. C. Coutinho no livro de base do curso, é preciso particionar a mensagem `m` em blocos. Como o próprio autor comenta, é possível fazer isso de diferentes maneiras. 
 
-Foi importante evitar que o dígito 0 aparecesse como primeiro dígito de algum membro do bloco e decidimos por definir como máximo o número 129. Assim, o resultado da partição em blocos é:
+Foi importante evitar que o dígito 0 aparecesse como primeiro dígito de algum membro do bloco e decidimos por definir como máximo o número 817. Assim, o resultado da partição em blocos é:
 
 ```python
 print(particao('22102914221029181210', 817))
