@@ -32,6 +32,8 @@ Conforme conversado um dia após a aula, apresentar o trabalho como arquivo mark
 
 ### Introdução
 
+<!--Pedro-->
+
 O algoritmo do RSA foi publicado em 1977 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
 
 O sistema tem como base de funcionamento uma chave pública, de ampla divulgação, como seu telefone em uma antiga lista telefônica, e uma chave privada, que deve ser mantida em sigilo. A essência da segurança do algoritmo está na dificuldade de se fatorar um número formado pelo produto de primos muito grandes. A chave privada, que deve ser mantida em sigilo, é justamente a fatoração dos números primos. 
@@ -61,6 +63,8 @@ def mdc(a, Φ):
 ```
 
 O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é co-primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
+
+<!--Bruna-->
 
 **4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `e`  em módulo `Φ(n)`, isto é, `e*d  ≡ 1 (mod Φ(n))`
 
@@ -93,7 +97,7 @@ def inverse_multiplicative(a, b):
         return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 ```
 
-
+<!--Pedro-->
 
 ### O expoente: `e` 
 
@@ -123,8 +127,6 @@ Há de ser ressaltado que acentos e caracteres especiais como `ç` não entraram
 
 
 Essa equivalência **não é um componente do RSA**. Trata-se apenas de uma adaptação que inserimos no exercício para enviar mensagens que não fossem numéricas. No livro de S.C. Coutinho, o autor denomina esse processo de **Pré-Codificação**.
-
-Aliás, cabe dizer que alguns cuidados devem ser tomados para evitar que um ataque de base frequentista interprete a mensagem. [comentar melhor]
 
 Ainda na nossa modelagem didática citada acima, em termos computacionais e dentro da linguagem Python, a representação foi feita a partir de um dicionário:
 
@@ -161,6 +163,8 @@ def char_to_num(string):
 ```
 
 
+
+<!--Bruna-->
 
 Após a conversão da mensagem em letras para um número, é necessário quebrar em blocos o número gerado. Depois, basta aplicar a criptografia RSA:
 
@@ -248,6 +252,7 @@ print (num_to_char(teste))
 
 ### Exemplo de mensagem numérica criptografada 
 
+<!--Pedro-->
 
 Para ilustrar o código, escolhemos o par de primos `p = 19` e `q = 43`. Assim, temos:
 
@@ -295,6 +300,8 @@ Para descriptografá-la:
 
 ### Exemplo de mensagem textual criptografada
 
+<!--Bruna-->
+
 Para o exemplo de mensagem textual, vamos mater o par didático de primos  `p = 19` e `q = 43`.
 
 Portanto, os valores `n` e de `Φ(n)` também serão mantidos:
@@ -310,7 +317,7 @@ Em seguida, precisamos encontrar a inversa de `65537` em `Φ(817) = 756`, isso p
 ```python
  print (inverse_multiplicative(65537,756))
 
->>> 341
+>> 341
 ```
 
 Portanto, com o retorno acima, temos `d=341`.
@@ -332,7 +339,7 @@ Nesse momento, é preciso fazer a pré-codificação chamando a função que con
 ```python
 print (char_to_num('matematica'))
 
->>> 22102914221029181210
+>> 22102914221029181210
 ```
 
 
@@ -346,7 +353,7 @@ Foi importante evitar que o dígito 0 aparecesse como primeiro dígito de algum 
 ```python
 print(particao('22102914221029181210', 817))
 
->>> [22, 102, 91, 422, 102, 91, 812, 10]
+>> [22, 102, 91, 422, 102, 91, 812, 10]
 
 ```
 
@@ -355,7 +362,7 @@ Depois disso, vamos criptografar cada membro da lista:
 ```python
 print (criptografia([22, 102, 91, 422, 102, 91, 812, 10], 65537, 817))
 
->>>> [70, 11, 71, 176, 11, 71, 15, 439]
+>> [70, 11, 71, 176, 11, 71, 15, 439]
 
   
 ```
@@ -369,7 +376,7 @@ bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
 
 print (decifrar(bloco_matematica, 341,817))
 
->>> [22, 102, 91, 422, 102, 91, 812, 10]
+>> [22, 102, 91, 422, 102, 91, 812, 10]
 
 ```
 
@@ -397,11 +404,9 @@ print (num_to_char(bloco_descriptografado_num))
 
 
 
-
-
-
-
 ### Teste de Primalidade Miller–Rabin
+
+<!--Pedro-->
 
 
 
