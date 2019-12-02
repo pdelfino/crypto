@@ -7,7 +7,7 @@
       + Pedro Delfino **[A1 e A2]**; e
       + Bruna Fistarol **[A2]**.
  + Data: 2019.2.
- + Tech Stack: Python 3. 
+ + Tech Stack: Python 3.  
  + Projeto: 
    
      - A1: 
