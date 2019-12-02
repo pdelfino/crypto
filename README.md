@@ -106,7 +106,7 @@ Há de ser ressaltado que acentos e caracteres especiais como `ç` não entraram
 
 
 
-![](https://github.com/pdelfino/crypto/tree/master/A2-RSA/tabela-num-letter.png)
+![](https://github.com/pdelfino/crypto/blob/master/A2-RSA/tabela-num-letter.png)
 
 
 
