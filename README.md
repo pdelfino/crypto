@@ -114,7 +114,7 @@ Portanto, números menores que `65537` são mais perigosos e números maiores qu
 ### Criptografando a mensagem
 
 Para criptografar uma mensagem `m` tal que `1 < m < n-1` em uma mensagem `c`, basta fazer :
-`m^a ≡ c (mod n)`. Aqui, utiliza-se a chave pública `(n, a)`.
+`m^e ≡ c (mod n)`. Aqui, utiliza-se a chave pública `(n, e)`.
 
 A criptografia RSA utiliza aritmética modular e, consequentemente, trabalha com mensagens que são *a* *priori* números. No entanto, a comunicação entre pessoas normalmente se dá por meio de letras.  Assim, resolvemos fazer uma tabela de equivalência entre letras e números.  Para sermos didáticos, definimos que as 25 letras do alfabeto e o caracter usado para "espaço" (portanto, 26 caracteres) seriam representados por 26 números, do digíto `10` até o dígito `36`.
 
@@ -310,14 +310,14 @@ Portanto, os valores `n` e de `Φ(n)` também serão mantidos:
 
 `Φ(n) = 18*42 = 756`
 
-Dessa vez, vamos usar como expoente o número `e=65537` . A inversa multiplicativa está garantida, pois, `MDC(756,65537)=1` .
+Dessa vez, vamos usar como expoente o número `e=47` . A inversa multiplicativa está garantida, pois, `MDC(756,47)=1` .
 
-Em seguida, precisamos encontrar a inversa de `65537` em `Φ(817) = 756`, isso pode ser feito mediante a função definida anteriormente:
+Em seguida, precisamos encontrar a inversa de `47` em `Φ(817) = 756`, isso pode ser feito mediante a função definida anteriormente:
 
 ```python
- print (inverse_multiplicative(65537,756))
+ print (inverse_multiplicative(47,756))
 
->> 341
+>> 563
 ```
 
 Portanto, com o retorno acima, temos `d=341`.
@@ -328,9 +328,9 @@ Isso pode ser verificado por meio do **teste de sanidade**:
 
 No caso,
 
-`65537 * 341 ≡  1 ( mod 756)       ` 
+`47 * 563 ≡  1 ( mod 756)       ` 
 
-Antes de criptografar, cabe enfatizar que nossa **chave pública** é formada pelo par `(e,n)`, no caso, `(65537,817)`.
+Antes de criptografar, cabe enfatizar que nossa **chave pública** é formada pelo par `(e,n)`, no caso, `(47,817)`.
 
 Finalmente, chegamos ao momento de criptografar a mensagem. Suponha que queremos enviar a mensagem `matematica`, afinal, esse é o sentido da vida rs. Portanto, `m=matematica`.
 
@@ -360,7 +360,7 @@ print(particao('22102914221029181210', 817))
 Depois disso, vamos criptografar cada membro da lista:
 
 ```python
-print (criptografia([22, 102, 91, 422, 102, 91, 812, 10], 65537, 817))
+print (criptografia([22, 102, 91, 422, 102, 91, 812, 10], 47, 817))
 
 >> [70, 11, 71, 176, 11, 71, 15, 439]
 
@@ -374,7 +374,7 @@ O resultado é que cada bloco foi criptografado. Assim, o próximo passo é desc
 ```python
 bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
 
-print (decifrar(bloco_matematica, 341,817))
+print (decifrar(bloco_matematica, 563,817))
 
 >> [22, 102, 91, 422, 102, 91, 812, 10]
 
@@ -382,13 +382,13 @@ print (decifrar(bloco_matematica, 341,817))
 
 Diferentemente do exemplo estritamente numérico, no caso da mensagem de texto, ocorre a decifragem de cada bloco, portanto:
 
-` m^e (mod n) ≡  (70)^341 (mod 817)  ≡  22 (mod 817)     ` 
+` m^e (mod n) ≡  (70)^563 (mod 817)  ≡  22 (mod 817)     ` 
 
-` m^e (mod n) ≡  (11)^341 (mod 817)  ≡  102 (mod 817) `
+` m^e (mod n) ≡  (11)^563 (mod 817)  ≡  102 (mod 817) `
 
 ​								 [...]
 
-` m^e (mod n) ≡  (439)^341 (mod 817)  ≡  10 (mod 817) `
+` m^e (mod n) ≡  (439)^563 (mod 817)  ≡  10 (mod 817) `
 
 
 
