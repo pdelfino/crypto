@@ -32,7 +32,7 @@ Conforme conversado um dia após a aula, apresentar o trabalho como arquivo mark
 
 ### Introdução
 
-<!--Pedro-->
+**[PEDRO]**
 
 O algoritmo do RSA foi publicado em 1977 com o objetivo de possibilitar a transmissão segura de dados. Atualmente, o algoritmo é usado diariamente em diversas transações digitais.
 
@@ -64,7 +64,7 @@ def mdc(a, Φ):
 
 O código acima, conhecido como o ***Algoritmo de Euclides***, pode ser usado para testar se o número `a` escolhido é co-primo com `Φ(n)`; caso seja, o MDC (Maior Divisor Comum) é `1`.
 
-<!--Bruna-->
+**[BRUNA]**
 
 **4)** Além disso, é preciso calcular `d` de modo que `d` seja o inverso multiplicativo de `e`  em módulo `Φ(n)`, isto é, `e*d  ≡ 1 (mod Φ(n))`
 
@@ -97,9 +97,9 @@ def inverse_multiplicative(a, b):
         return "MDC("+str(a)+","+str(b)+")!=1, logo, não tem inversa"
 ```
 
-<!--Pedro-->
+**[PEDRO]**
 
-### O expoente: `e` 
+O expoente: `e` 
 
 Em geral, a comunidade de criptografia RSA usa o número `65537` como expoente público padrão.  Este número apresenta algumas vantagens:
 
@@ -164,7 +164,7 @@ def char_to_num(string):
 
 
 
-<!--Bruna-->
+**[BRUNA]**
 
 Após a conversão da mensagem em letras para um número, é necessário quebrar em blocos o número gerado. Depois, basta aplicar a criptografia RSA:
 
@@ -252,7 +252,7 @@ print (num_to_char(teste))
 
 ### Exemplo de mensagem numérica criptografada 
 
-<!--Pedro-->
+**[PEDRO]**
 
 Para ilustrar o código, escolhemos o par de primos `p = 19` e `q = 43`. Assim, temos:
 
@@ -300,7 +300,7 @@ Para descriptografá-la:
 
 ### Exemplo de mensagem textual criptografada
 
-<!--Bruna-->
+**[BRUNA]**
 
 Para o exemplo de mensagem textual, vamos mater o par didático de primos  `p = 19` e `q = 43`.
 
@@ -406,7 +406,7 @@ print (num_to_char(bloco_descriptografado_num))
 
 ### Teste de Primalidade Miller–Rabin
 
-<!--Pedro-->
+**[PEDRO]**
 
 
 
