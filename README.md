@@ -422,9 +422,14 @@ Ao receber um número, o Teste consegue dizer com **altíssima probabilidade** s
 
 Essa palestra, que ocorreu em Julho deste ano (2019), tece críticas interessantes ao RSA: [@Summer Conf 2019](https://www.youtube.com/watch?v=lElHzac8DDI&t=225s). Resumidamente:
 
-	-	O RSA foi importante para a Segurança da Comunicação, mas já se passaram 20 anos e se tornou uma técnica obsoleta;
-	-	Os desenvolvedores superestimam suas habilidades de implementação do RSA e, frequentemente, cometem erros  - o que gera falhas de segurança. Nesse caso, as grandes vítimas são os usuários das aplicações;
-	-	O método de criptografia com curvas elípticas já estão sendo usadas desde 2005 e foram comentadas pelo Professor Luciano no curso. De acordo com o palestrante, algoritmos com curvas elípticas são um método mais robusto, mais resistente a erros de desenvolvedores e que deveriam ser mais populares. Nesse sentido, ele sugere especificamente a **biblioteca libsodium.**
+- O RSA foi importante para a Segurança da Comunicação, mas já se passaram 20 anos e se tornou uma técnica obsoleta;
+
+-	Os desenvolvedores superestimam suas habilidades de implementação do RSA e, frequentemente, cometem erros  - o que gera falhas de segurança. Nesse caso, as grandes vítimas são os usuários das aplicações;
+-	O método de criptografia com curvas elípticas já estão sendo usadas desde 2005 e foram comentadas pelo Professor Luciano no curso. De acordo com o palestrante, algoritmos com curvas elípticas são um método mais robusto, mais resistente a erros de desenvolvedores e que deveriam ser mais populares. Nesse sentido, ele sugere especificamente a **biblioteca libsodium.**
+
+
+
+
 
 
 
