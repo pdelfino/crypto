@@ -24,4 +24,4 @@ def criptografia(alist, a, n): #recebe lista de números
         c.append((m**a)%n)
     return c
 
-print (criptografia(output,65537,817))
+print (criptografia(output,47,817))

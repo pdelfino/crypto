@@ -362,7 +362,8 @@ Depois disso, vamos criptografar cada membro da lista:
 ```python
 print (criptografia([22, 102, 91, 422, 102, 91, 812, 10], 47, 817))
 
->> [70, 11, 71, 176, 11, 71, 15, 439]
+>> [770, 752, 459, 643, 752, 459, 659, 584]
+
 
   
 ```
@@ -372,11 +373,13 @@ O resultado é que cada bloco foi criptografado. Assim, o próximo passo é desc
 
 
 ```python
-bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
+bloco_matematica = [770, 752, 459, 643, 752, 459, 659, 584]
+
 
 print (decifrar(bloco_matematica, 563,817))
 
 >> [22, 102, 91, 422, 102, 91, 812, 10]
+
 
 ```
 

@@ -1,4 +1,4 @@
-bloco_matematica = [70, 11, 71, 176, 11, 71, 15, 439]
+bloco_matematica = [770, 752, 459, 643, 752, 459, 659, 584]
 
 def decifrar(alist, a, n):
     m = []
@@ -6,4 +6,4 @@ def decifrar(alist, a, n):
         m.append((c**a)%n)
     return m
 
-print (decifrar(bloco_matematica, 341,817))
+print (decifrar(bloco_matematica, 563,817))
