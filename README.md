@@ -404,9 +404,27 @@ print (num_to_char(bloco_descriptografado_num))
 
 
 
+### Extras
+
 ### Teste de Primalidade Miller–Rabin
 
 **[PEDRO]**
+
+Para garantir a segurança do RSA é preciso gerar dois números primos grandes. Além disso, é importante que isso seja feito de forma aleatória.
+
+Entretanto, ao se tratar de primos grandes essa é uma tarefa custosa computacionalmente. Nesse contexto, surge o Teste de Primalidade de Miller-Rabin.
+
+Ao receber um número, o Teste consegue dizer com **altíssima probabilidade** se o número é primo ou não. Há de ser ressaltado, entretanto, que o teste funciona dentro de uma **estocasticidade**, isto é, seus resultados **não** são determinísticos.  Assim, na implementação do RSA, este teste pode ser usado para gerar os dois primos necessários para a criptografia.
+
+
+
+### Críticas ao RSA:
+
+Essa palestra, que ocorreu em Julho deste ano (2019), tece críticas interessantes ao RSA: [@Summer Conf 2019](https://www.youtube.com/watch?v=lElHzac8DDI&t=225s). Resumidamente:
+
+	-	O RSA foi importante para a Segurança da Comunicação, mas já se passaram 20 anos e se tornou uma técnica obsoleta;
+	-	Os desenvolvedores superestimam suas habilidades de implementação do RSA e, frequentemente, cometem erros  - o que gera falhas de segurança. Nesse caso, as grandes vítimas são os usuários das aplicações;
+	-	O método de criptografia com curvas elípticas já estão sendo usadas desde 2005 e foram comentadas pelo Professor Luciano no curso. De acordo com o palestrante, algoritmos com curvas elípticas são um método mais robusto, mais resistente a erros de desenvolvedores e que deveriam ser mais populares. Nesse sentido, ele sugere especificamente a **biblioteca libsodium.**
 
 
 
