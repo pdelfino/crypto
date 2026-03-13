@@ -1,6 +1,6 @@
 # Algebra, Number Theory, and Cryptography
 
-![The Ambassadors](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Hans_Holbein_the_Younger_-_The_Ambassadors_-_Google_Art_Project.jpg/960px-Hans_Holbein_the_Younger_-_The_Ambassadors_-_Google_Art_Project.jpg)
+![The Ambassadors](./painting.jpg)
 
 *"The Ambassadors" (1533) by Hans Holbein the Younger — [Wikipedia](https://en.wikipedia.org/wiki/The_Ambassadors_(Holbein))*
 
